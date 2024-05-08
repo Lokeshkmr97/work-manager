@@ -20,7 +20,9 @@ const CustomNavbar = () => {
             <li>
                 <Link href={'/'}>Home</Link>
             </li> {/* Link tag is used for not refresh the page when click on Home */}
-            <li><a href="#!">Add Task</a></li>
+            <li>
+                <Link href={'/add-task'}>Add Task</Link>
+            </li>
             <li><a href="#!">Task</a></li>
         </ul>
        </div>
