@@ -15,6 +15,14 @@ const SignUp = () => {
         profileUrl:"http://localhost:3000/image/lokesh",
     })
 
+    const resetForm=()=>{
+        setData({
+            name: "",
+            email: "",
+            password: "",
+            about:""
+          });
+    }
 
     {/* handle function for signup form*/}
 
@@ -35,12 +43,7 @@ const SignUp = () => {
                 position: "top-center",
               });
         
-              setData({
-                name: "",
-                email: "",
-                password: "",
-                about:""
-              });
+              resetForm();
 
         } catch (error) {
             console.log(error);
@@ -155,8 +158,8 @@ const SignUp = () => {
               Sign Up
             </button>
             
-            <button className="bg-orange-600 rounded-lg py-2 px-3 hover:bg-orange-900 ms-5"
-            >
+            <button type="button" className="bg-orange-600 rounded-lg py-2 px-3 hover:bg-orange-900 ms-5"
+            onClick={resetForm}>
               Reset
             </button>
           </div>
