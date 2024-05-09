@@ -34,7 +34,7 @@ const CustomNavbar = () => {
     {/* right side start */}
        <div>
         <ul className='flex space-x-6 font-medium'>
-            <li><a href="#!"> SignUp</a></li>
+            <li><Link href="/signup"> SignUp</Link></li>
             <li><a href="#!"> Login</a></li>
         </ul>
        </div>

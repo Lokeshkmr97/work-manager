@@ -1,16 +1,24 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddtaskImage from "../assets/addTask.svg";
 import Image from "next/image";
 import { addTask } from "@/services/taskService";
 import { toast } from "react-toastify";
+import Loading from "./loading";
+
+
 // import { connectDb } from "@/helper/db";
-// export const metadata = {
-//     title: "Add Task : Work Manager"
-//   };
 
 // connectDb();
+
 const AddTask = () => {
+
+  useEffect(() => {
+    document.title = "Add Task : Work Manager"
+    
+  }, []);
+  
+  const [isLoading, setIsLoading] = useState(false);
   const [task, setTask] = useState({
     title: "",
     content: "",
@@ -18,27 +26,33 @@ const AddTask = () => {
     userId: "6638855d37a5d06fad4e67ec",
   });
 
- const HandleAddTask =async (event)=>{
-      event.preventDefault(); // to stop the default behavior of the event.
+  const HandleAddTask = async (event) => {
+    event.preventDefault(); // to stop the default behavior of the event.
 
-      //  Validate Add task data
+    //  Validate Add task data
 
-      try {
-        
-        const result=await addTask(task);
-        console.log(result)
-        {/** this is showing messages to the users. */}
-        toast.success("Your Task is Added.",{
-          position:"top-center"
-        })
-
-      } catch (error) {
-        console.log(error);
-        toast.error("Failed to add task.",{
-          position:"top-center"
-        })
+    try {
+      const result = await addTask(task); // addTask function is used for the call import { addTask } from "@/services/taskService";
+      console.log(result);
+      {
+        /** this is showing messages to the users. */
       }
- }
+      toast.success("Your Task is Added.", {
+        position: "top-center",
+      });
+
+      setTask({
+        title: "",
+        content: "",
+        status: "none",
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to add task.", {
+        position: "top-center",
+      });
+    }
+  };
 
   return (
     <div className="grid grid-cols-12 justify-center">
@@ -58,7 +72,7 @@ const AddTask = () => {
 
         {/* start form */}
 
-        <form action="#!" onSubmit={HandleAddTask}>
+        <form action="#!" onSubmit={HandleAddTask} >
           {/* Task title  */}
           <div className="mt-4">
             <label htmlFor="tast_title" className="block font-medium mb-2">
@@ -70,13 +84,13 @@ const AddTask = () => {
               id="task_title"
               name="task_title"
               // here is writen function for the storing data into the database.
-              onChange={(event)=>{
+              onChange={(event) => {
                 setTask({
                   ...task, // ...task is used for add all previous data in the array.
-                  title:event.target.value,
-                })
+                  title: event.target.value,
+                });
               }}
-              value={task.title} 
+              value={task.title}
             />
           </div>
 
@@ -91,13 +105,13 @@ const AddTask = () => {
               rows={4}
               name="task_content"
               // here is writen function for the storing data into the database.
-              onChange={(event)=>{
+              onChange={(event) => {
                 setTask({
                   ...task, // ...task is used for add all previous data in the array.
-                  content:event.target.value,
-                })
+                  content: event.target.value,
+                });
               }}
-              value={task.content} 
+              value={task.content}
             />
           </div>
 
@@ -111,14 +125,14 @@ const AddTask = () => {
               className="w-full p-2.5 rounded-lg focus:ring-red-300 text-xl bg-gray-100 text-black"
               name="task_status"
               // here is writen function for the storing data into the database.
-              onChange={(event)=>{
+              onChange={(event) => {
                 setTask({
                   ...task, // ...task is used for add all previous data in the array.
-                  status:event.target.value,
-                })
+                  status: event.target.value,
+                });
               }}
-              value={task.status} 
-              >
+              value={task.status}
+            >
               <option value="none" disabled>
                 ---Select Status---
               </option>
@@ -129,9 +143,11 @@ const AddTask = () => {
 
           {/* buttons */}
           <div className="mt-4 flex justify-center">
-            <button className="bg-blue-600 rounded-lg py-2 px-3 hover:bg-blue-900">
+            <button className="bg-blue-600 rounded-lg py-2 px-3 hover:bg-blue-900"
+            >
               Add Task
             </button>
+            {isLoading && <Loading />}
             <button className="bg-red-600 rounded-lg py-2 px-3 hover:bg-red-900 ms-5">
               Clear
             </button>
