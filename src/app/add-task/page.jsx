@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import AddtaskImage from "../assets/addTask.svg";
 import Image from "next/image";
 import { addTask } from "@/services/taskService";
+import { toast } from "react-toastify";
 // import { connectDb } from "@/helper/db";
 // export const metadata = {
 //     title: "Add Task : Work Manager"
@@ -26,11 +27,16 @@ const AddTask = () => {
         
         const result=await addTask(task);
         console.log(result)
-        return result;
+        {/** this is showing messages to the users. */}
+        toast.success("Your Task is Added.",{
+          position:"top-center"
+        })
 
       } catch (error) {
         console.log(error);
-        
+        toast.error("Failed to add task.",{
+          position:"top-center"
+        })
       }
  }
 
