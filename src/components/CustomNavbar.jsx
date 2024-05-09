@@ -7,7 +7,7 @@ import React from 'react'
 
 const CustomNavbar = () => {
   return (
-    <nav className='flex px-3 py-3 h-16 bg-green-400 justify-between items-center'>
+    <nav className='flex px-3 py-3 h-16 bg-blue-400 justify-between items-center'>
     {/* left side start */}
        <div>
         <a href="#!"><h1 className='text-xl font-bold'>Work Manager</h1></a>
@@ -23,7 +23,9 @@ const CustomNavbar = () => {
             <li>
                 <Link href={'/add-task'}>Add Task</Link>
             </li>
-            <li><a href="#!">Task</a></li>
+            <li>
+                <Link href={'/show-task'}>Show Task</Link>
+            </li>
         </ul>
        </div>
 
