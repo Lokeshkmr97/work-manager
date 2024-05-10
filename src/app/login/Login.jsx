@@ -4,8 +4,11 @@ import LoginUser from "../assets/loginUser.svg";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import { login } from "@/services/signUpService";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+
+  const router=useRouter();
 
   const [loginData,setLoginData]=useState({
     email:"",
@@ -31,13 +34,13 @@ const Login = () => {
       })
 
       // redirect the page after login user.
-      
+      router.push("/profile/users")
 
 
       
     } catch (error) {
       console.log(error);
-      toast.error("Failed to login user.",{
+      toast.error(error.response.data.message,{
         position:"top-center"
       })
       
