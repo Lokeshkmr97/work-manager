@@ -5,7 +5,7 @@ import { httpAxios } from "@/helper/httpAxios";
 //  call user api.
 export async function signUp(user) {
   const result = await httpAxios
-    .post("api/users", user)
+    .post("/api/users", user)
     .then((response) => response.data);
 
   return result;
@@ -13,7 +13,14 @@ export async function signUp(user) {
 
 export async function login(loginData) {
   const result = await httpAxios
-    .post("api/login", loginData)
+    .post("/api/login", loginData)
+    .then((response) => response.data);
+    return result;
+}
+
+export async function currentUser() {
+  const result = await httpAxios
+    .get("/api/currentUserLogin")
     .then((response) => response.data);
     return result;
 }

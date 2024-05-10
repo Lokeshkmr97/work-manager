@@ -1,9 +1,10 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import 'react-toastify/dist/ReactToastify.css'; // this is used for showing popup messages
+import "react-toastify/dist/ReactToastify.css"; // this is used for showing popup messages
 import CustomNavbar from "@/components/CustomNavbar";
 import Footer from "@/components/Footer";
 import { ToastContainer } from "react-toastify";
+import UserProvider from "./context/userProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,10 +17,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-      <ToastContainer />  {/* this is used for the showing messages using toast*/}
-      <CustomNavbar />
-      <div className="mt-3">{children}</div>
-      <Footer />
+        <UserProvider>
+          <ToastContainer />{" "}
+          {/* this is used for the showing messages using toast*/}
+          <CustomNavbar />
+          <div className="mt-3">{children}</div>
+          <Footer />
+        </UserProvider>
       </body>
     </html>
   );
