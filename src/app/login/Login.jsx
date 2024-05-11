@@ -1,14 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import LoginUser from "../assets/loginUser.svg";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import { login } from "@/services/signUpService";
 import { useRouter } from "next/navigation";
+import UserContext from "../context/userContext";
 
 const Login = () => {
 
   const router=useRouter();
+  const context=useContext(UserContext);
 
   const [loginData,setLoginData]=useState({
     email:"",
@@ -34,6 +36,8 @@ const Login = () => {
       })
 
       // redirect the page after login user.
+
+      context.setUser(result.user) // this line print all the information about user in frontend.
       router.push("/profile/users")
 
 

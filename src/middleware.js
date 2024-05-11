@@ -7,7 +7,7 @@ export function middleware(request) {
   // this line is used for the taken login cookies from the browser.
   const loginToken = request.cookies.get("loginToken")?.value;
 
-  if(request.nextUrl.pathname==="/api/login"){
+  if(request.nextUrl.pathname==="/api/login" || request.nextUrl.pathname==="/api/users"){
     return;
   }
 
@@ -21,6 +21,15 @@ export function middleware(request) {
     }else{
         // accessing secure routes.
         if(!loginToken){
+
+          if(request.nextUrl.pathname.startsWith("/api")){
+            return NextResponse.json({
+              message:"Access Denied!!!",
+              success:false
+            },{
+              status:401,
+            });
+          }
             return NextResponse.redirect(new URL("/login",request.url));
         }
     }

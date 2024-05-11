@@ -3,13 +3,32 @@
 "use client";
 
 import UserContext from '@/app/context/userContext';
+import { logout } from '@/services/signUpService';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useContext } from 'react'
+import { toast } from 'react-toastify';
 
 const CustomNavbar = () => {
 
     const context=useContext(UserContext);
+    const router=useRouter();
     console.log(context);
+
+    async function doLogout(){
+      try {
+
+        const result=await logout();
+        console.log(result);
+        context.setUser(undefined);
+        router.push("/")
+        
+      } catch (error) {
+        console.log(error);
+        toast.error("Logout error!!");
+        
+      }
+    }
 
   return (
     <nav className="flex px-3 py-3 h-16 bg-blue-400 justify-between items-center">
@@ -38,6 +57,7 @@ const CustomNavbar = () => {
               </li>
             </>
           )}
+
         </ul>
       </div>
 
@@ -52,7 +72,7 @@ const CustomNavbar = () => {
                 <Link href={"#!"}>{context.user.name}</Link>
               </li>
               <li>
-                <a href="/logout">Logout</a>
+                <button onClick={doLogout}>Logout</button>
               </li>
             </>
           )}
@@ -63,7 +83,7 @@ const CustomNavbar = () => {
                 <Link href="/signup"> SignUp</Link>
               </li>
               <li>
-                <a href="/login"> Login</a>
+                <Link href="/login"> Login</Link>
               </li>
             </>
           )}

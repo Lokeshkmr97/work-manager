@@ -16,12 +16,14 @@ const UserProvider = ({ children }) => {
         setUser({ ...logUser });
       } catch (error) {
         console.log(error);
-        toast.error("Error in loading current User.");
+        // toast.error("Error in loading current User.");
         setUser(undefined);
       }
     }
-
-    load();
+    if(!user){
+      load();
+    }
+    
   }, []);
 
   return (
